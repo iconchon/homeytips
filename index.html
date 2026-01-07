@@ -62,9 +62,40 @@
             Pembelian
           </button>
         </nav>
-        <button class="md:hidden text-gray-600">
-          <i class="fas fa-bars text-2xl"></i>
+        <button id="mobileMenuButton" class="md:hidden text-gray-600 focus:outline-none" aria-label="Toggle menu" aria-expanded="false" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars text-2xl" id="iconOpen"></i>
+            <i class="fas fa-times text-2xl hidden" id="iconClose"></i>
         </button>
+
+        <!-- Mobile menu (hidden by default) -->
+        <div id="mobileMenu" class="md:hidden absolute top-full left-0 right-0 bg-white shadow-md hidden z-40">
+            <div class="px-4 pt-4 pb-6 space-y-4">
+                <a href="#products" class="block text-blue-600 font-medium hover:text-blue-800" onclick="toggleMobileMenu()">Template</a>
+                <a href="#testimonials" class="block text-gray-600 hover:text-blue-600" onclick="toggleMobileMenu()">Testimoni</a>
+                <a href="#contact" class="block text-gray-600 hover:text-blue-600" onclick="toggleMobileMenu()">Kontak</a>
+                <button onclick="toggleMobileMenu(); showTransferPage()" class="w-full bg-blue-600 text-white px-4 py-2 rounded-md font-medium hover:bg-blue-700 flex items-center justify-center">
+                    <i class="fas fa-credit-card mr-2"></i>
+                    Pembelian
+                </button>
+            </div>
+        </div>
+
+        <script>
+        function toggleMobileMenu(){
+            var btn = document.getElementById('mobileMenuButton');
+            var menu = document.getElementById('mobileMenu');
+            var openIcon = document.getElementById('iconOpen');
+            var closeIcon = document.getElementById('iconClose');
+
+            menu.classList.toggle('hidden');
+            var isOpen = !menu.classList.contains('hidden');
+
+            // When open: hide hamburger, show X
+            openIcon.classList.toggle('hidden', isOpen);
+            closeIcon.classList.toggle('hidden', !isOpen);
+            btn.setAttribute('aria-expanded', String(isOpen));
+        }
+        </script>
       </div>
     </div>
   </header>
