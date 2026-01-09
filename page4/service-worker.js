@@ -1,8 +1,8 @@
 const CACHE_NAME = "homeytips-v1";
 const urlsToCache = [
-  "./",
-  "./index.html",
-  "./manifest.json",
+  "./page4/home-icon-from-html.svg",
+  "./page4/index.html",
+  "./page4/manifest.json",
   "https://cdn.tailwindcss.com",
   "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css",
   "https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"

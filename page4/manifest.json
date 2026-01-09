@@ -8,18 +8,18 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/home-icon-from-html.svg",
+      "src": "./page4/home-icon-from-html.svg",
       "sizes": "192x192",
       "type": "image/svg+xml"
     },
     {
-      "src": "/home-icon-from-html.svg",
+      "src": "./page4/home-icon-from-html.svg",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "any"
     },
     {
-      "src": "/home-icon-from-html.svg",
+      "src": "./page4/home-icon-from-html.svg",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "maskable"
