@@ -2,11 +2,31 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HomeyTips - Perencana Rumah Tangga Cerdas</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- SEO & Metadata -->
+    <title>HomeyTips - Aplikasi Perencana Rumah Tangga & Keuangan Gratis</title>
+    <meta name="description" content="Kelola keuangan rumah tangga (metode 50/30/20), rencana menu makan mingguan, jadwal pekerjaan rumah, dan tabungan liburan dalam satu aplikasi web gratis.">
+    <meta name="keywords" content="planner keuangan, budgeting rumah tangga, meal plan generator, jadwal piket rumah, tabungan liburan, excel keuangan">
+    <meta name="author" content="HomeyTips">
+    <meta name="theme-color" content="#3b82f6">
+
+    <!-- Open Graph / Facebook / WhatsApp -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://uangplanner.com/">
+    <meta property="og:title" content="HomeyTips - Perencana Rumah Tangga Cerdas">
+    <meta property="og:description" content="Atur gaji, menu makan, dan liburan keluarga jadi lebih mudah dan terstruktur. Coba sekarang!">
+    <meta property="og:image" content="https://via.placeholder.com/1200x630/3b82f6/ffffff?text=HomeyTips+Planner">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="HomeyTips - Perencana Rumah Tangga Cerdas">
+    <meta property="twitter:description" content="Atur gaji, menu makan, dan liburan keluarga jadi lebih mudah.">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <script>
         tailwind.config = {
             theme: {
@@ -27,6 +47,9 @@
                             800: '#1e40af',
                             900: '#1e3a8a',
                         }
+                    },
+                    screens: {
+                        'xs': '475px', // Extra small breakpoint
                     }
                 }
             }
@@ -47,218 +70,281 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #3b82f6;
         }
+        
         .hide-section {
             display: none;
         }
+        
+        /* Smooth Fade In Animation */
         .fade-in {
-            animation: fadeIn 0.3s ease-in-out;
+            animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
         .active-nav {
             background-color: #eff6ff;
             color: #1d4ed8;
             font-weight: 600;
-            border-bottom: 2px solid #2563eb;
+        }
+        
+        /* Touch Action manipulation for faster clicks on mobile */
+        button, a {
+            touch-action: manipulation;
+        }
+
+        /* Prevent iOS Zoom on focus */
+        input, textarea {
+            font-size: 16px !important; 
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-700 font-sans">
+<body class="bg-slate-50 text-slate-700 font-sans antialiased pb-20 md:pb-0">
 
     <!-- Navigation -->
-    <nav class="bg-white shadow-md sticky top-0 z-50">
+    <nav class="bg-white/95 backdrop-blur-sm shadow-sm sticky top-0 z-50 border-b border-slate-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center cursor-pointer" onclick="showSection('home')">
-                    <i class="fas fa-home text-brand-600 text-2xl mr-2"></i>
-                    <span class="font-bold text-xl text-brand-800">HomeyTips</span>
+            <div class="flex justify-between h-16 md:h-20">
+                <div class="flex items-center cursor-pointer group" onclick="showSection('home')">
+                    <div class="bg-brand-50 p-2 rounded-lg mr-2 group-hover:bg-brand-100 transition">
+                        <i class="fas fa-home text-brand-600 text-xl md:text-2xl"></i>
+                    </div>
+                    <span class="font-bold text-xl md:text-2xl text-brand-800 tracking-tight">HomeyTips</span>
                 </div>
+                
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex space-x-2 items-center">
-                    <button onclick="showSection('finance')" class="nav-btn px-3 py-2 rounded-md text-sm font-medium hover:text-brand-600 transition">Keuangan</button>
-                    <button onclick="showSection('chores')" class="nav-btn px-3 py-2 rounded-md text-sm font-medium hover:text-brand-600 transition">Rutinitas</button>
-                    <button onclick="showSection('vacation')" class="nav-btn px-3 py-2 rounded-md text-sm font-medium hover:text-brand-600 transition">Liburan</button>
-                    <button onclick="showSection('meals')" class="nav-btn px-3 py-2 rounded-md text-sm font-medium hover:text-brand-600 transition">Menu Makan</button>
+                    <button onclick="showSection('finance')" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 hover:text-brand-600 transition">Keuangan</button>
+                    <button onclick="showSection('chores')" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 hover:text-brand-600 transition">Rutinitas</button>
+                    <button onclick="showSection('vacation')" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 hover:text-brand-600 transition">Liburan</button>
+                    <button onclick="showSection('meals')" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-50 hover:text-brand-600 transition">Menu Makan</button>
                     <!-- Product Link Highlighted -->
-                    <button onclick="showSection('products')" class="nav-btn px-4 py-2 rounded-full text-sm font-bold bg-yellow-400 text-brand-900 hover:bg-yellow-500 transition shadow-sm ml-2">
-                        <i class="fas fa-shopping-bag mr-1"></i> Produk
+                    <button onclick="showSection('products')" class="nav-btn px-5 py-2.5 rounded-full text-sm font-bold bg-yellow-400 text-brand-900 hover:bg-yellow-500 hover:shadow-md transition ml-2 transform active:scale-95">
+                        <i class="fas fa-shopping-bag mr-2"></i> Produk
                     </button>
                 </div>
+
                 <!-- Mobile Menu Button -->
                 <div class="flex items-center md:hidden">
-                    <button onclick="toggleMobileMenu()" class="text-gray-600 hover:text-brand-600 focus:outline-none">
+                    <button onclick="toggleMobileMenu()" class="p-2 rounded-md text-gray-600 hover:text-brand-600 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-brand-200">
                         <i class="fas fa-bars text-2xl"></i>
                     </button>
                 </div>
             </div>
         </div>
+        
         <!-- Mobile Menu Panel -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <button onclick="showSection('finance')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50">Keuangan</button>
-                <button onclick="showSection('chores')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50">Rutinitas</button>
-                <button onclick="showSection('vacation')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50">Liburan</button>
-                <button onclick="showSection('meals')" class="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50">Menu Makan</button>
-                <button onclick="showSection('products')" class="block w-full text-left px-3 py-2 rounded-md text-base font-bold text-brand-700 bg-yellow-50 hover:bg-yellow-100"><i class="fas fa-shopping-bag mr-2"></i> Produk Premium</button>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 absolute w-full shadow-lg">
+            <div class="px-4 pt-4 pb-6 space-y-2">
+                <button onclick="showSection('finance')" class="w-full text-left px-4 py-3 rounded-xl text-base font-medium text-slate-600 hover:text-brand-700 hover:bg-brand-50 transition flex items-center">
+                    <i class="fas fa-wallet w-8 text-center mr-2 text-brand-400"></i> Keuangan
+                </button>
+                <button onclick="showSection('chores')" class="w-full text-left px-4 py-3 rounded-xl text-base font-medium text-slate-600 hover:text-brand-700 hover:bg-brand-50 transition flex items-center">
+                    <i class="fas fa-broom w-8 text-center mr-2 text-green-400"></i> Rutinitas
+                </button>
+                <button onclick="showSection('vacation')" class="w-full text-left px-4 py-3 rounded-xl text-base font-medium text-slate-600 hover:text-brand-700 hover:bg-brand-50 transition flex items-center">
+                    <i class="fas fa-plane w-8 text-center mr-2 text-orange-400"></i> Liburan
+                </button>
+                <button onclick="showSection('meals')" class="w-full text-left px-4 py-3 rounded-xl text-base font-medium text-slate-600 hover:text-brand-700 hover:bg-brand-50 transition flex items-center">
+                    <i class="fas fa-utensils w-8 text-center mr-2 text-red-400"></i> Menu Makan
+                </button>
+                <div class="pt-2 mt-2 border-t border-slate-100">
+                    <button onclick="showSection('products')" class="w-full text-left px-4 py-3 rounded-xl text-base font-bold text-brand-900 bg-yellow-400 hover:bg-yellow-500 shadow-sm transition flex items-center justify-center mt-2">
+                        <i class="fas fa-shopping-bag mr-2"></i> Lihat Produk Premium
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
 
     <!-- Main Content Container -->
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10">
 
         <!-- HOME SECTION -->
         <section id="home" class="fade-in">
-            <div class="text-center py-12 bg-gradient-to-br from-brand-600 to-brand-800 rounded-3xl shadow-xl text-white mb-10 relative overflow-hidden">
+            <div class="text-center py-10 md:py-20 bg-gradient-to-br from-brand-600 to-brand-800 rounded-3xl shadow-xl text-white mb-8 md:mb-12 relative overflow-hidden mx-auto max-w-5xl">
                 <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-                    <i class="fas fa-shapes absolute top-10 left-10 text-6xl"></i>
+                    <i class="fas fa-shapes absolute top-10 left-10 text-6xl animate-pulse"></i>
                     <i class="fas fa-coins absolute bottom-10 right-10 text-6xl"></i>
                 </div>
-                <h1 class="text-4xl md:text-5xl font-bold mb-4 relative z-10">Kelola Rumah Tangga Jadi Mudah</h1>
-                <p class="text-lg md:text-xl text-brand-100 mb-8 max-w-2xl mx-auto relative z-10">Satu tempat untuk merencanakan keuangan, mengatur pekerjaan rumah, hingga merancang liburan impian keluarga.</p>
-                <div class="relative z-10 flex flex-col sm:flex-row gap-4 justify-center">
-                    <button onclick="showSection('finance')" class="bg-white text-brand-700 font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-brand-50 transition transform hover:-translate-y-1">
-                        Mulai Sekarang
-                    </button>
-                    <button onclick="showSection('products')" class="bg-yellow-400 text-brand-900 font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-yellow-500 transition transform hover:-translate-y-1">
-                        Lihat Template
-                    </button>
+                <div class="relative z-10 px-4">
+                    <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 leading-tight">Kelola Rumah Tangga<br class="hidden md:block"> Jadi Mudah</h1>
+                    <p class="text-base md:text-xl text-brand-100 mb-8 max-w-2xl mx-auto leading-relaxed">Satu tempat untuk merencanakan keuangan, mengatur pekerjaan rumah, hingga merancang liburan impian keluarga.</p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center w-full max-w-md mx-auto sm:max-w-none">
+                        <button onclick="showSection('finance')" class="w-full sm:w-auto bg-white text-brand-700 font-bold py-3.5 px-8 rounded-full shadow-lg hover:bg-brand-50 transition transform hover:-translate-y-1 active:scale-95">
+                            Mulai Sekarang
+                        </button>
+                        <button onclick="showSection('products')" class="w-full sm:w-auto bg-yellow-400 text-brand-900 font-bold py-3.5 px-8 rounded-full shadow-lg hover:bg-yellow-500 transition transform hover:-translate-y-1 active:scale-95">
+                            <i class="fas fa-star mr-2 text-brand-900/50"></i> Lihat Template
+                        </button>
+                    </div>
                 </div>
             </div>
 
             <!-- Features Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div onclick="showSection('finance')" class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition cursor-pointer border border-slate-100 group">
-                    <div class="w-12 h-12 bg-brand-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-brand-200 transition">
-                        <i class="fas fa-wallet text-brand-600 text-xl"></i>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                <!-- Card 1 -->
+                <div onclick="showSection('finance')" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-lg hover:border-brand-200 transition cursor-pointer border border-slate-100 group touch-manipulation">
+                    <div class="flex items-center space-x-4 mb-3">
+                        <div class="w-12 h-12 bg-brand-100 rounded-xl flex items-center justify-center group-hover:bg-brand-200 transition">
+                            <i class="fas fa-wallet text-brand-600 text-xl"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-800">Smart Budget</h3>
                     </div>
-                    <h3 class="font-bold text-lg mb-2">Smart Budget</h3>
-                    <p class="text-sm text-slate-500">Kalkulator alokasi gaji dengan metode 50/30/20.</p>
+                    <p class="text-sm text-slate-500 leading-relaxed">Kalkulator alokasi gaji otomatis dengan metode 50/30/20.</p>
                 </div>
 
-                <div onclick="showSection('chores')" class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition cursor-pointer border border-slate-100 group">
-                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-green-200 transition">
-                        <i class="fas fa-broom text-green-600 text-xl"></i>
+                <!-- Card 2 -->
+                <div onclick="showSection('chores')" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-lg hover:border-green-200 transition cursor-pointer border border-slate-100 group touch-manipulation">
+                    <div class="flex items-center space-x-4 mb-3">
+                        <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center group-hover:bg-green-200 transition">
+                            <i class="fas fa-broom text-green-600 text-xl"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-800">Rutinitas</h3>
                     </div>
-                    <h3 class="font-bold text-lg mb-2">Rutinitas Harian</h3>
-                    <p class="text-sm text-slate-500">Ceklis pekerjaan rumah tangga agar tetap rapi.</p>
+                    <p class="text-sm text-slate-500 leading-relaxed">Ceklis pekerjaan rumah tangga harian agar rumah tetap rapi.</p>
                 </div>
 
-                <div onclick="showSection('vacation')" class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition cursor-pointer border border-slate-100 group">
-                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-orange-200 transition">
-                        <i class="fas fa-plane text-orange-600 text-xl"></i>
+                <!-- Card 3 -->
+                <div onclick="showSection('vacation')" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-lg hover:border-orange-200 transition cursor-pointer border border-slate-100 group touch-manipulation">
+                    <div class="flex items-center space-x-4 mb-3">
+                        <div class="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center group-hover:bg-orange-200 transition">
+                            <i class="fas fa-plane text-orange-600 text-xl"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-800">Liburan</h3>
                     </div>
-                    <h3 class="font-bold text-lg mb-2">Rencana Liburan</h3>
-                    <p class="text-sm text-slate-500">Hitung target tabungan untuk trip keluarga.</p>
+                    <p class="text-sm text-slate-500 leading-relaxed">Hitung target tabungan bulanan untuk trip impian keluarga.</p>
                 </div>
 
-                <div onclick="showSection('meals')" class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition cursor-pointer border border-slate-100 group">
-                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-red-200 transition">
-                        <i class="fas fa-utensils text-red-600 text-xl"></i>
+                <!-- Card 4 -->
+                <div onclick="showSection('meals')" class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-lg hover:border-red-200 transition cursor-pointer border border-slate-100 group touch-manipulation">
+                    <div class="flex items-center space-x-4 mb-3">
+                        <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center group-hover:bg-red-200 transition">
+                            <i class="fas fa-utensils text-red-600 text-xl"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-800">Meal Plan</h3>
                     </div>
-                    <h3 class="font-bold text-lg mb-2">Meal Plan</h3>
-                    <p class="text-sm text-slate-500">Jadwal menu masakan mingguan anti pusing.</p>
+                    <p class="text-sm text-slate-500 leading-relaxed">Jadwal menu masakan mingguan anti pusing dan hemat.</p>
                 </div>
             </div>
         </section>
 
         <!-- FINANCE SECTION -->
         <section id="finance" class="hide-section fade-in">
-            <div class="flex items-center justify-between mb-6">
-                <h2 class="text-2xl font-bold text-slate-800"><i class="fas fa-calculator text-brand-500 mr-2"></i> Perencana Keuangan (Metode 50/30/20)</h2>
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between mb-6 md:mb-8 gap-4">
+                <div>
+                    <h2 class="text-2xl md:text-3xl font-bold text-slate-800 flex items-center">
+                        <i class="fas fa-calculator text-brand-500 mr-3"></i> Perencana Keuangan
+                    </h2>
+                    <p class="text-sm text-slate-500 mt-1 ml-10">Metode 50/30/20 untuk keseimbangan cashflow.</p>
+                </div>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
                 <!-- Calculator Input -->
-                <div class="bg-white p-6 rounded-xl shadow-md border border-slate-100 h-fit">
-                    <h3 class="font-semibold text-lg mb-4 text-brand-700">Masukan Data</h3>
-                    <div class="space-y-4">
+                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-md border border-slate-100 h-fit">
+                    <h3 class="font-bold text-lg mb-5 text-brand-700 border-b pb-2">Masukan Data</h3>
+                    <div class="space-y-5">
                         <div>
-                            <label class="block text-sm font-medium text-slate-600 mb-1">Total Pendapatan Bulanan (IDR)</label>
-                            <input type="number" id="incomeInput" placeholder="Contoh: 10000000" class="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-brand-300 focus:outline-none transition">
+                            <label class="block text-sm font-semibold text-slate-600 mb-2">Total Pendapatan Bulanan (IDR)</label>
+                            <div class="relative">
+                                <span class="absolute left-4 top-3 text-slate-400">Rp</span>
+                                <input type="number" id="incomeInput" placeholder="0" class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-brand-300 focus:border-brand-500 focus:outline-none transition text-lg font-medium text-slate-800">
+                            </div>
                         </div>
-                        <button onclick="calculateBudget()" class="w-full bg-brand-600 text-white py-2 rounded-lg hover:bg-brand-700 transition font-medium">Hitung Alokasi</button>
+                        <button onclick="calculateBudget()" class="w-full bg-brand-600 text-white py-3.5 rounded-xl hover:bg-brand-700 transition font-bold shadow-md hover:shadow-lg active:scale-95">Hitung Alokasi</button>
                     </div>
-                    <div class="mt-6 bg-blue-50 p-4 rounded-lg text-sm text-blue-800">
-                        <p><strong>Rumus 50/30/20:</strong></p>
-                        <ul class="list-disc pl-5 mt-1 space-y-1">
-                            <li>50% Kebutuhan (Wajib)</li>
-                            <li>30% Keinginan (Hiburan)</li>
-                            <li>20% Tabungan/Investasi</li>
+                    
+                    <div class="mt-8 bg-blue-50 p-5 rounded-xl text-sm text-blue-800 border border-blue-100">
+                        <p class="font-bold mb-2"><i class="fas fa-info-circle mr-1"></i> Rumus 50/30/20:</p>
+                        <ul class="space-y-2">
+                            <li class="flex items-center"><span class="w-2 h-2 bg-brand-500 rounded-full mr-2"></span> 50% Kebutuhan (Wajib)</li>
+                            <li class="flex items-center"><span class="w-2 h-2 bg-purple-500 rounded-full mr-2"></span> 30% Keinginan (Hiburan)</li>
+                            <li class="flex items-center"><span class="w-2 h-2 bg-green-500 rounded-full mr-2"></span> 20% Tabungan/Investasi</li>
                         </ul>
                     </div>
                 </div>
 
                 <!-- Results -->
-                <div class="lg:col-span-2 space-y-6">
+                <div class="lg:col-span-2 space-y-4 md:space-y-6">
                     <!-- Needs -->
-                    <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-brand-500">
-                        <div class="flex justify-between items-center mb-2">
-                            <h4 class="font-bold text-lg text-slate-700">Kebutuhan (Needs) - 50%</h4>
-                            <span id="needsValue" class="text-xl font-bold text-brand-600">Rp 0</span>
+                    <div class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-slate-100 border-l-[6px] border-l-brand-500">
+                        <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-3">
+                            <h4 class="font-bold text-lg text-slate-700">Kebutuhan (Needs)</h4>
+                            <span id="needsValue" class="text-2xl font-bold text-brand-600 mt-1 sm:mt-0">Rp 0</span>
                         </div>
-                        <div class="w-full bg-slate-200 rounded-full h-2.5">
-                            <div class="bg-brand-500 h-2.5 rounded-full" style="width: 50%"></div>
+                        <div class="w-full bg-slate-100 rounded-full h-3 mb-3">
+                            <div class="bg-brand-500 h-3 rounded-full shadow-sm" style="width: 50%"></div>
                         </div>
-                        <p class="text-sm text-slate-500 mt-2">Cicilan rumah, listrik, air, belanja bulanan, transport, sekolah anak.</p>
+                        <p class="text-xs md:text-sm text-slate-500">Cicilan rumah, listrik, air, belanja bulanan, transport, sekolah anak.</p>
                     </div>
 
                     <!-- Wants -->
-                    <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-purple-500">
-                        <div class="flex justify-between items-center mb-2">
-                            <h4 class="font-bold text-lg text-slate-700">Keinginan (Wants) - 30%</h4>
-                            <span id="wantsValue" class="text-xl font-bold text-purple-600">Rp 0</span>
+                    <div class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-slate-100 border-l-[6px] border-l-purple-500">
+                        <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-3">
+                            <h4 class="font-bold text-lg text-slate-700">Keinginan (Wants)</h4>
+                            <span id="wantsValue" class="text-2xl font-bold text-purple-600 mt-1 sm:mt-0">Rp 0</span>
                         </div>
-                        <div class="w-full bg-slate-200 rounded-full h-2.5">
-                            <div class="bg-purple-500 h-2.5 rounded-full" style="width: 30%"></div>
+                        <div class="w-full bg-slate-100 rounded-full h-3 mb-3">
+                            <div class="bg-purple-500 h-3 rounded-full shadow-sm" style="width: 30%"></div>
                         </div>
-                        <p class="text-sm text-slate-500 mt-2">Makan di luar, langganan streaming, belanja hobi, liburan kecil.</p>
+                        <p class="text-xs md:text-sm text-slate-500">Makan di luar, langganan streaming, belanja hobi, liburan kecil.</p>
                     </div>
 
                     <!-- Savings -->
-                    <div class="bg-white p-6 rounded-xl shadow-md border-l-4 border-green-500">
-                        <div class="flex justify-between items-center mb-2">
-                            <h4 class="font-bold text-lg text-slate-700">Tabungan (Savings) - 20%</h4>
-                            <span id="savingsValue" class="text-xl font-bold text-green-600">Rp 0</span>
+                    <div class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-slate-100 border-l-[6px] border-l-green-500">
+                        <div class="flex flex-col sm:flex-row justify-between sm:items-center mb-3">
+                            <h4 class="font-bold text-lg text-slate-700">Tabungan (Savings)</h4>
+                            <span id="savingsValue" class="text-2xl font-bold text-green-600 mt-1 sm:mt-0">Rp 0</span>
                         </div>
-                        <div class="w-full bg-slate-200 rounded-full h-2.5">
-                            <div class="bg-green-500 h-2.5 rounded-full" style="width: 20%"></div>
+                        <div class="w-full bg-slate-100 rounded-full h-3 mb-3">
+                            <div class="bg-green-500 h-3 rounded-full shadow-sm" style="width: 20%"></div>
                         </div>
-                        <p class="text-sm text-slate-500 mt-2">Dana darurat, investasi pensiun, pelunasan hutang ekstra.</p>
+                        <p class="text-xs md:text-sm text-slate-500">Dana darurat, investasi pensiun, pelunasan hutang ekstra.</p>
                     </div>
 
                     <!-- CTA Mini -->
-                    <div class="bg-brand-50 border border-brand-200 rounded-xl p-4 flex justify-between items-center cursor-pointer hover:bg-brand-100 transition" onclick="showSection('products')">
+                    <div class="bg-gradient-to-r from-brand-50 to-white border border-brand-200 rounded-2xl p-5 flex flex-col sm:flex-row justify-between items-center cursor-pointer hover:shadow-md transition gap-4 text-center sm:text-left" onclick="showSection('products')">
                         <div>
-                            <p class="font-bold text-brand-800">Ingin template detail?</p>
-                            <p class="text-sm text-brand-600">Cek Smart Sheet Pro kami</p>
+                            <p class="font-bold text-brand-800 text-lg">Ingin template detail?</p>
+                            <p class="text-sm text-brand-600">Cek Smart Sheet Pro kami untuk fitur tracking hutang.</p>
                         </div>
-                        <i class="fas fa-chevron-right text-brand-400"></i>
+                        <button class="bg-brand-600 text-white px-6 py-2 rounded-full font-medium text-sm hover:bg-brand-700">
+                            Lihat Template <i class="fas fa-arrow-right ml-1"></i>
+                        </button>
                     </div>
-
                 </div>
             </div>
         </section>
 
         <!-- CHORES SECTION -->
         <section id="chores" class="hide-section fade-in">
-            <h2 class="text-2xl font-bold text-slate-800 mb-6"><i class="fas fa-check-square text-green-500 mr-2"></i> Daftar Rutinitas Harian</h2>
+            <h2 class="text-2xl md:text-3xl font-bold text-slate-800 mb-6 flex items-center">
+                <i class="fas fa-check-square text-green-500 mr-3"></i> Rutinitas Harian
+            </h2>
             
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden border border-slate-100">
-                <div class="p-4 bg-brand-50 border-b border-brand-100 flex justify-between items-center">
-                    <span class="font-semibold text-brand-800">Hari ini: <span id="currentDate"></span></span>
-                    <button onclick="resetChores()" class="text-sm text-red-500 hover:text-red-700">Reset Semua</button>
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-slate-100">
+                <div class="p-5 bg-brand-50 border-b border-brand-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                    <span class="font-semibold text-brand-800 flex items-center">
+                        <i class="far fa-calendar-alt mr-2"></i> <span id="currentDate"></span>
+                    </span>
+                    <button onclick="resetChores()" class="text-sm text-red-500 hover:text-red-700 hover:bg-red-50 px-3 py-1 rounded-lg transition font-medium w-full sm:w-auto text-right sm:text-center">
+                        <i class="fas fa-undo mr-1"></i> Reset Semua
+                    </button>
                 </div>
-                <div class="p-6">
+                <div class="p-5 md:p-8">
                     <div class="space-y-3" id="choresList">
                         <!-- Chores items generated by JS -->
                     </div>
                     
-                    <div class="mt-6 pt-4 border-t flex gap-2">
-                        <input type="text" id="newChoreInput" placeholder="Tambah tugas baru..." class="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-300">
-                        <button onclick="addChore()" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition"><i class="fas fa-plus"></i></button>
+                    <div class="mt-8 pt-6 border-t flex flex-col sm:flex-row gap-3">
+                        <input type="text" id="newChoreInput" placeholder="Tambah tugas baru..." class="flex-1 px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-300 transition">
+                        <button onclick="addChore()" class="bg-green-500 text-white px-6 py-3 rounded-xl hover:bg-green-600 transition font-bold shadow-md active:scale-95 flex items-center justify-center">
+                            <i class="fas fa-plus mr-2"></i> Tambah
+                        </button>
                     </div>
                 </div>
             </div>
@@ -266,47 +352,51 @@
 
         <!-- VACATION SECTION -->
         <section id="vacation" class="hide-section fade-in">
-             <h2 class="text-2xl font-bold text-slate-800 mb-6"><i class="fas fa-plane-departure text-orange-500 mr-2"></i> Kalkulator Tabungan Liburan</h2>
+             <h2 class="text-2xl md:text-3xl font-bold text-slate-800 mb-6 flex items-center">
+                <i class="fas fa-plane-departure text-orange-500 mr-3"></i> Tabungan Liburan
+            </h2>
 
-             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white p-6 rounded-xl shadow-md">
-                    <h3 class="font-bold text-lg mb-4 border-b pb-2">Detail Rencana</h3>
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-md border border-slate-100">
+                    <h3 class="font-bold text-lg mb-5 border-b pb-2 text-slate-700">Detail Rencana</h3>
                     <div class="space-y-4">
                         <div>
-                            <label class="block text-sm font-medium text-slate-600 mb-1">Tujuan Liburan</label>
-                            <input type="text" id="destInput" placeholder="Contoh: Bali, Jepang" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-300">
+                            <label class="block text-sm font-semibold text-slate-600 mb-2">Tujuan Liburan</label>
+                            <input type="text" id="destInput" placeholder="Contoh: Bali, Jepang" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-300 transition">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-600 mb-1">Total Biaya yang Dibutuhkan (IDR)</label>
-                            <input type="number" id="costInput" placeholder="Contoh: 15000000" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-300">
+                            <label class="block text-sm font-semibold text-slate-600 mb-2">Total Biaya (IDR)</label>
+                            <input type="number" id="costInput" placeholder="Contoh: 15000000" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-300 transition">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-600 mb-1">Tabungan Saat Ini (IDR)</label>
-                            <input type="number" id="currentSavingsInput" placeholder="Contoh: 2000000" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-300">
+                            <label class="block text-sm font-semibold text-slate-600 mb-2">Tabungan Saat Ini (IDR)</label>
+                            <input type="number" id="currentSavingsInput" placeholder="Contoh: 2000000" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-300 transition">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-600 mb-1">Rencana Berangkat (Bulan dari sekarang)</label>
-                            <input type="number" id="monthsInput" placeholder="Contoh: 12" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-300">
+                            <label class="block text-sm font-semibold text-slate-600 mb-2">Rencana Berangkat (Bulan)</label>
+                            <input type="number" id="monthsInput" placeholder="Contoh: 12" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-300 transition">
                         </div>
-                        <button onclick="calculateVacation()" class="w-full bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 font-medium transition mt-2">Hitung Target</button>
+                        <button onclick="calculateVacation()" class="w-full bg-orange-500 text-white py-3.5 rounded-xl hover:bg-orange-600 font-bold transition mt-2 shadow-md hover:shadow-lg active:scale-95">Hitung Target</button>
                     </div>
                 </div>
 
-                <div class="bg-white p-6 rounded-xl shadow-md flex flex-col justify-center items-center text-center relative overflow-hidden">
-                    <div id="vacationResult" class="hidden w-full">
-                        <i class="fas fa-piggy-bank text-5xl text-orange-400 mb-4"></i>
-                        <p class="text-slate-500 mb-2">Untuk pergi ke <span id="resDest" class="font-bold">...</span> dalam <span id="resMonths">...</span> bulan,</p>
-                        <p class="text-slate-500 mb-4">Kamu harus menabung sebesar:</p>
-                        <h3 class="text-3xl md:text-4xl font-bold text-brand-700 mb-2" id="resMonthly">Rp 0</h3>
-                        <p class="text-sm text-slate-400">per bulan</p>
+                <div class="bg-white p-6 md:p-8 rounded-2xl shadow-md flex flex-col justify-center items-center text-center relative overflow-hidden border border-slate-100 min-h-[300px]">
+                    <div id="vacationResult" class="hidden w-full animate-fade-in-up">
+                        <div class="w-20 h-20 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fas fa-piggy-bank text-4xl text-orange-500"></i>
+                        </div>
+                        <p class="text-slate-500 mb-2">Untuk ke <span id="resDest" class="font-bold text-slate-800">...</span> dalam <span id="resMonths" class="font-bold text-slate-800">...</span> bulan,</p>
+                        <p class="text-slate-500 mb-4 text-sm">Kamu harus menabung sebesar:</p>
+                        <h3 class="text-3xl md:text-5xl font-bold text-brand-600 mb-2 tracking-tight" id="resMonthly">Rp 0</h3>
+                        <p class="text-sm text-slate-400 mb-6">per bulan</p>
                         
-                        <div class="mt-6 bg-orange-50 p-3 rounded-lg text-sm text-orange-800 text-left">
-                            <p><i class="fas fa-info-circle mr-1"></i> <strong>Tips:</strong> Sisihkan ini di awal bulan (pay yourself first) agar tidak terpakai!</p>
+                        <div class="bg-orange-50 p-4 rounded-xl text-sm text-orange-800 text-left border border-orange-100">
+                            <p><i class="fas fa-lightbulb mr-1 text-orange-500"></i> <strong>Tips:</strong> Sisihkan ini di awal bulan (pay yourself first) agar tidak terpakai!</p>
                         </div>
                     </div>
                     <div id="vacationEmpty" class="text-slate-400">
-                        <i class="fas fa-map-marked-alt text-6xl mb-4 opacity-30"></i>
-                        <p>Isi formulir di samping untuk melihat perhitungan.</p>
+                        <i class="fas fa-map-marked-alt text-7xl mb-6 opacity-20"></i>
+                        <p class="text-lg">Isi formulir di samping untuk melihat perhitungan.</p>
                     </div>
                 </div>
              </div>
@@ -314,10 +404,12 @@
 
         <!-- MEALS SECTION -->
         <section id="meals" class="hide-section fade-in">
-            <h2 class="text-2xl font-bold text-slate-800 mb-6"><i class="fas fa-utensils text-red-500 mr-2"></i> Rencana Makan Mingguan</h2>
-            <p class="text-slate-500 mb-6">Klik pada kartu untuk mengedit menu.</p>
+            <h2 class="text-2xl md:text-3xl font-bold text-slate-800 mb-2 flex items-center">
+                <i class="fas fa-utensils text-red-500 mr-3"></i> Menu Makan
+            </h2>
+            <p class="text-slate-500 mb-8 ml-10 text-sm md:text-base">Klik pada kartu untuk mengedit menu harian.</p>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
                 <!-- Meal Cards generated by JS -->
                 <div id="mealGrid" class="contents">
                     <!-- Cards will be injected here -->
@@ -325,11 +417,12 @@
             </div>
         </section>
 
-        <!-- PRODUCTS SECTION (NEW) -->
+        <!-- PRODUCTS SECTION -->
         <section id="products" class="hide-section fade-in">
-            <div class="text-center mb-10">
-                <h2 class="text-3xl font-bold text-slate-800 mb-2">Template Premium</h2>
-                <p class="text-slate-500">Tingkatkan produktivitas dengan alat bantu Excel & Google Sheets siap pakai.</p>
+            <div class="text-center mb-10 md:mb-16">
+                <span class="bg-yellow-100 text-yellow-800 px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider mb-3 inline-block">Premium Tools</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mb-4">Upgrade Produktivitasmu</h2>
+                <p class="text-slate-500 max-w-2xl mx-auto text-sm md:text-base px-4">Template Excel & Google Sheets siap pakai yang dirancang profesional untuk mengatur keuangan dan liburan tanpa pusing rumus.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -337,25 +430,25 @@
                 <!-- Product 1: Finance -->
                 <div class="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden flex flex-col hover:shadow-xl transition relative group">
                     <div class="h-2 bg-brand-500 w-full"></div>
-                    <div class="p-8 flex-1 flex flex-col items-center text-center">
-                        <div class="w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center mb-6 text-brand-600 text-2xl group-hover:scale-110 transition">
+                    <div class="p-6 md:p-8 flex-1 flex flex-col items-center text-center">
+                        <div class="w-16 h-16 bg-brand-50 rounded-2xl flex items-center justify-center mb-6 text-brand-600 text-2xl group-hover:scale-110 transition duration-300">
                             <i class="fas fa-file-invoice-dollar"></i>
                         </div>
                         <h3 class="text-xl font-bold text-slate-800 mb-2">Smart Finance Sheet</h3>
-                        <p class="text-sm text-slate-500 mb-6 leading-relaxed">
+                        <p class="text-sm text-slate-500 mb-6 leading-relaxed px-2">
                             Dashboard keuangan otomatis. Lacak pemasukan, pengeluaran, hutang, dan net worth dalam satu file.
                         </p>
-                        <ul class="text-sm text-slate-600 space-y-2 mb-8 text-left w-full px-4">
-                            <li><i class="fas fa-check text-green-500 mr-2"></i> Dashboard Visual</li>
-                            <li><i class="fas fa-check text-green-500 mr-2"></i> Laporan Bulanan</li>
-                            <li><i class="fas fa-check text-green-500 mr-2"></i> Tracker Hutang</li>
+                        <ul class="text-sm text-slate-600 space-y-3 mb-8 text-left w-full px-2 bg-slate-50 py-4 rounded-xl">
+                            <li><i class="fas fa-check-circle text-brand-500 mr-2"></i> Dashboard Visual</li>
+                            <li><i class="fas fa-check-circle text-brand-500 mr-2"></i> Laporan Bulanan</li>
+                            <li><i class="fas fa-check-circle text-brand-500 mr-2"></i> Tracker Hutang</li>
                         </ul>
                         <div class="mt-auto w-full">
-                            <div class="mb-4">
-                                <span class="text-slate-400 line-through text-sm">Rp 99.000</span>
-                                <span class="text-2xl font-bold text-slate-800 block">Rp 49.000</span>
+                            <div class="mb-4 flex flex-col items-center">
+                                <span class="text-slate-400 line-through text-xs">Rp 99.000</span>
+                                <span class="text-3xl font-bold text-slate-800">Rp 49.000</span>
                             </div>
-                            <button onclick="openPaymentModal('Smart Finance Sheet', 49000)" class="w-full bg-brand-600 text-white py-3 rounded-xl font-bold hover:bg-brand-700 transition shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                            <button onclick="openPaymentModal('Smart Finance Sheet', 49000)" class="w-full bg-brand-600 text-white py-3.5 rounded-xl font-bold hover:bg-brand-700 transition shadow-md hover:shadow-lg active:scale-95">
                                 Beli Sekarang
                             </button>
                         </div>
@@ -365,25 +458,25 @@
                 <!-- Product 2: Vacation -->
                 <div class="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden flex flex-col hover:shadow-xl transition relative group">
                     <div class="h-2 bg-orange-500 w-full"></div>
-                    <div class="p-8 flex-1 flex flex-col items-center text-center">
-                        <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mb-6 text-orange-600 text-2xl group-hover:scale-110 transition">
+                    <div class="p-6 md:p-8 flex-1 flex flex-col items-center text-center">
+                        <div class="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center mb-6 text-orange-600 text-2xl group-hover:scale-110 transition duration-300">
                             <i class="fas fa-map-marked-alt"></i>
                         </div>
                         <h3 class="text-xl font-bold text-slate-800 mb-2">Trip Planner Pro</h3>
-                        <p class="text-sm text-slate-500 mb-6 leading-relaxed">
+                        <p class="text-sm text-slate-500 mb-6 leading-relaxed px-2">
                             Rencanakan itinerary, budget liburan, dan packing list agar liburan bebas stres dan terkontrol.
                         </p>
-                        <ul class="text-sm text-slate-600 space-y-2 mb-8 text-left w-full px-4">
-                            <li><i class="fas fa-check text-green-500 mr-2"></i> Itinerary Builder</li>
-                            <li><i class="fas fa-check text-green-500 mr-2"></i> Kalkulator Budget</li>
-                            <li><i class="fas fa-check text-green-500 mr-2"></i> Checklist Barang</li>
+                        <ul class="text-sm text-slate-600 space-y-3 mb-8 text-left w-full px-2 bg-slate-50 py-4 rounded-xl">
+                            <li><i class="fas fa-check-circle text-orange-500 mr-2"></i> Itinerary Builder</li>
+                            <li><i class="fas fa-check-circle text-orange-500 mr-2"></i> Kalkulator Budget</li>
+                            <li><i class="fas fa-check-circle text-orange-500 mr-2"></i> Checklist Barang</li>
                         </ul>
                         <div class="mt-auto w-full">
-                            <div class="mb-4">
-                                <span class="text-slate-400 line-through text-sm">Rp 59.000</span>
-                                <span class="text-2xl font-bold text-slate-800 block">Rp 29.000</span>
+                            <div class="mb-4 flex flex-col items-center">
+                                <span class="text-slate-400 line-through text-xs">Rp 59.000</span>
+                                <span class="text-3xl font-bold text-slate-800">Rp 29.000</span>
                             </div>
-                            <button onclick="openPaymentModal('Trip Planner Pro', 29000)" class="w-full bg-brand-600 text-white py-3 rounded-xl font-bold hover:bg-brand-700 transition shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                            <button onclick="openPaymentModal('Trip Planner Pro', 29000)" class="w-full bg-brand-600 text-white py-3.5 rounded-xl font-bold hover:bg-brand-700 transition shadow-md hover:shadow-lg active:scale-95">
                                 Beli Sekarang
                             </button>
                         </div>
@@ -392,28 +485,28 @@
 
                 <!-- Product 3: Bundle -->
                 <div class="bg-gradient-to-b from-slate-800 to-slate-900 rounded-2xl shadow-xl overflow-hidden flex flex-col hover:shadow-2xl transition relative group text-white border-2 border-yellow-400 transform md:-translate-y-4">
-                    <div class="absolute top-4 right-4 bg-yellow-400 text-slate-900 text-xs font-bold px-3 py-1 rounded-full animate-pulse">
+                    <div class="absolute top-4 right-4 bg-yellow-400 text-slate-900 text-[10px] md:text-xs font-bold px-3 py-1 rounded-full animate-pulse shadow-glow">
                         BEST VALUE
                     </div>
-                    <div class="p-8 flex-1 flex flex-col items-center text-center">
-                        <div class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mb-6 text-yellow-400 text-3xl group-hover:scale-110 transition border border-white/20">
+                    <div class="p-6 md:p-8 flex-1 flex flex-col items-center text-center">
+                        <div class="w-20 h-20 bg-white/10 rounded-full flex items-center justify-center mb-6 text-yellow-400 text-3xl group-hover:scale-110 transition border border-white/10 shadow-[0_0_15px_rgba(250,204,21,0.3)]">
                             <i class="fas fa-gift"></i>
                         </div>
                         <h3 class="text-2xl font-bold text-white mb-2">Ultimate Bundle</h3>
                         <p class="text-sm text-slate-300 mb-6 leading-relaxed">
                             Dapatkan SEMUA template kami. Paket lengkap untuk manajemen keuangan dan liburan keluarga.
                         </p>
-                        <ul class="text-sm text-slate-300 space-y-2 mb-8 text-left w-full px-4 border-t border-b border-white/10 py-4">
-                            <li><i class="fas fa-check text-yellow-400 mr-2"></i> Smart Finance Sheet</li>
-                            <li><i class="fas fa-check text-yellow-400 mr-2"></i> Trip Planner Pro</li>
-                            <li><i class="fas fa-star text-yellow-400 mr-2"></i> Bonus: Kalender Tahunan</li>
+                        <ul class="text-sm text-slate-300 space-y-3 mb-8 text-left w-full px-4 border-t border-b border-white/10 py-6">
+                            <li class="flex items-center"><i class="fas fa-check text-yellow-400 mr-3"></i> Smart Finance Sheet</li>
+                            <li class="flex items-center"><i class="fas fa-check text-yellow-400 mr-3"></i> Trip Planner Pro</li>
+                            <li class="flex items-center"><i class="fas fa-star text-yellow-400 mr-3"></i> Bonus: Kalender Tahunan</li>
                         </ul>
                         <div class="mt-auto w-full">
-                            <div class="mb-4">
+                            <div class="mb-4 flex flex-col items-center">
                                 <span class="text-slate-500 line-through text-sm">Rp 158.000</span>
-                                <span class="text-3xl font-bold text-yellow-400 block">Rp 69.000</span>
+                                <span class="text-4xl font-bold text-yellow-400">Rp 69.000</span>
                             </div>
-                            <button onclick="openPaymentModal('Ultimate Bundle', 69000)" class="w-full bg-yellow-400 text-slate-900 py-3 rounded-xl font-bold hover:bg-yellow-500 transition shadow-lg transform hover:-translate-y-0.5">
+                            <button onclick="openPaymentModal('Ultimate Bundle', 69000)" class="w-full bg-yellow-400 text-slate-900 py-3.5 rounded-xl font-bold hover:bg-yellow-500 transition shadow-lg hover:shadow-yellow-400/20 active:scale-95">
                                 Ambil Promo Ini
                             </button>
                         </div>
@@ -426,99 +519,112 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t mt-12 py-8">
+    <footer class="bg-white border-t mt-12 md:mt-20 py-8 md:py-12">
         <div class="max-w-7xl mx-auto px-4 text-center">
-            <p class="text-brand-800 font-bold text-lg mb-2">HomeyTips</p>
-            <p class="text-slate-500 text-sm mb-4">Teman setia perencanaan rumah tangga Anda.</p>
-            <div class="flex justify-center space-x-4 mb-4">
-                <a href="#" class="text-slate-400 hover:text-brand-500"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="text-slate-400 hover:text-brand-500"><i class="fab fa-facebook"></i></a>
-                <a href="#" class="text-slate-400 hover:text-brand-500"><i class="fab fa-twitter"></i></a>
+            <div class="mb-6 flex justify-center items-center">
+                <div class="bg-brand-50 p-2 rounded-lg mr-2">
+                    <i class="fas fa-home text-brand-600 text-xl"></i>
+                </div>
+                <span class="font-bold text-xl text-brand-800">HomeyTips</span>
             </div>
-            <p class="text-slate-400 text-xs">&copy; 2024 HomeyTips Planner. All rights reserved.</p>
+            <p class="text-slate-500 text-sm mb-6 max-w-md mx-auto leading-relaxed">Teman setia perencanaan rumah tangga Anda. Kelola uang, waktu, dan kebahagiaan keluarga dalam satu tempat.</p>
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="#" class="text-slate-400 hover:text-brand-500 transition transform hover:scale-110"><i class="fab fa-instagram text-2xl"></i></a>
+                <a href="#" class="text-slate-400 hover:text-brand-500 transition transform hover:scale-110"><i class="fab fa-facebook text-2xl"></i></a>
+                <a href="#" class="text-slate-400 hover:text-brand-500 transition transform hover:scale-110"><i class="fab fa-twitter text-2xl"></i></a>
+                <a href="#" class="text-slate-400 hover:text-brand-500 transition transform hover:scale-110"><i class="fab fa-tiktok text-2xl"></i></a>
+            </div>
+            <div class="border-t border-slate-100 pt-6">
+                <p class="text-slate-400 text-xs">&copy; 2024 HomeyTips Planner. Dibuat dengan <i class="fas fa-heart text-red-400"></i> untuk keluarga Indonesia.</p>
+            </div>
         </div>
     </footer>
 
     <!-- Modal for Meal Edit -->
-    <div id="mealModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50 p-4">
-        <div class="bg-white rounded-xl p-6 w-full max-w-md">
-            <h3 class="text-xl font-bold mb-4" id="modalDayTitle">Edit Menu</h3>
-            <textarea id="modalMealInput" class="w-full border rounded-lg p-3 h-32 focus:ring-2 focus:ring-brand-500 focus:outline-none" placeholder="Tulis menu sarapan, siang, dan malam..."></textarea>
-            <div class="flex justify-end gap-2 mt-4">
-                <button onclick="closeModal()" class="px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg">Batal</button>
-                <button onclick="saveMeal()" class="px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700">Simpan</button>
+    <div id="mealModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden flex items-center justify-center z-[60] p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md animate-fade-in-up">
+            <div class="p-6 border-b border-slate-100 flex justify-between items-center">
+                <h3 class="text-xl font-bold text-slate-800" id="modalDayTitle">Edit Menu</h3>
+                <button onclick="closeModal()" class="text-slate-400 hover:text-slate-600 w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 transition"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="p-6">
+                <textarea id="modalMealInput" class="w-full border border-slate-200 rounded-xl p-4 h-40 focus:ring-2 focus:ring-brand-500 focus:outline-none resize-none text-base" placeholder="Tulis menu sarapan, siang, dan malam..."></textarea>
+                <div class="flex justify-end gap-3 mt-6">
+                    <button onclick="closeModal()" class="px-5 py-2.5 text-slate-600 hover:bg-slate-100 rounded-xl font-medium transition">Batal</button>
+                    <button onclick="saveMeal()" class="px-5 py-2.5 bg-brand-600 text-white rounded-xl hover:bg-brand-700 font-bold shadow-md transition">Simpan</button>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Modal for Payment -->
-    <div id="paymentModal" class="fixed inset-0 bg-black bg-opacity-60 hidden flex items-center justify-center z-50 p-4 backdrop-blur-sm">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden relative animate-bounce-in">
+    <div id="paymentModal" class="fixed inset-0 bg-black/60 backdrop-blur-md hidden flex items-end sm:items-center justify-center z-[60] sm:p-4">
+        <div class="bg-white rounded-t-3xl sm:rounded-2xl shadow-2xl w-full max-w-md overflow-hidden relative animate-slide-up sm:animate-bounce-in max-h-[90vh] overflow-y-auto">
             <!-- Header -->
             <div class="bg-brand-600 p-6 text-white text-center relative">
-                <button onclick="closePaymentModal()" class="absolute top-4 right-4 text-white/70 hover:text-white">
-                    <i class="fas fa-times text-xl"></i>
+                <button onclick="closePaymentModal()" class="absolute top-4 right-4 text-white/70 hover:text-white w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center transition">
+                    <i class="fas fa-times text-lg"></i>
                 </button>
-                <i class="fas fa-shopping-cart text-4xl mb-3 opacity-90"></i>
+                <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3 backdrop-blur-sm">
+                    <i class="fas fa-shopping-cart text-3xl"></i>
+                </div>
                 <h3 class="text-xl font-bold">Pembayaran</h3>
-                <p class="text-brand-100 text-sm">Selesaikan pesanan Anda</p>
+                <p class="text-brand-100 text-sm">Langkah terakhir untuk upgrade</p>
             </div>
 
             <!-- Body -->
-            <div class="p-6">
+            <div class="p-6 md:p-8">
                 <!-- Product Summary -->
-                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 mb-6 flex justify-between items-center">
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 mb-6 flex justify-between items-center shadow-sm">
                     <div>
-                        <p class="text-xs text-slate-500 uppercase font-semibold">Produk</p>
-                        <p class="font-bold text-slate-800" id="payProductName">Product Name</p>
+                        <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Produk</p>
+                        <p class="font-bold text-slate-800 text-sm sm:text-base" id="payProductName">Product Name</p>
                     </div>
                     <div class="text-right">
-                        <p class="text-xs text-slate-500 uppercase font-semibold">Total</p>
+                        <p class="text-[10px] text-slate-500 uppercase font-bold tracking-wider">Total</p>
                         <p class="font-bold text-brand-600 text-lg" id="payProductPrice">Rp 0</p>
                     </div>
                 </div>
 
                 <!-- Transfer Info -->
-                <div class="text-center mb-6">
-                    <p class="text-sm text-slate-600 mb-3">Silakan transfer ke salah satu rekening:</p>
+                <div class="mb-8">
+                    <p class="text-sm font-medium text-slate-700 mb-3 text-center">Silakan transfer ke:</p>
                     
                     <div class="space-y-3">
-                        <div class="flex items-center justify-between border rounded-lg p-3 hover:border-brand-300 transition group">
+                        <div class="flex items-center justify-between border border-slate-200 rounded-xl p-4 hover:border-brand-300 hover:bg-blue-50/30 transition group cursor-pointer" onclick="copyToClipboard('1234567890', this)">
                             <div class="flex items-center">
-                                <div class="w-10 h-6 bg-blue-800 rounded mr-3"></div> <!-- Placeholder BCA Logo -->
+                                <div class="w-12 h-8 bg-blue-800 rounded flex items-center justify-center text-white text-[10px] font-bold mr-3">BCA</div>
                                 <div class="text-left">
-                                    <p class="font-bold text-sm">BCA</p>
-                                    <p class="text-xs text-slate-500">A.N HomeyTips</p>
+                                    <p class="font-bold text-sm text-slate-800">1234 567 890</p>
+                                    <p class="text-xs text-slate-500">HomeyTips</p>
                                 </div>
                             </div>
-                            <div class="flex items-center">
-                                <span class="font-mono font-bold text-slate-700 mr-2">1234567890</span>
-                                <button onclick="copyToClipboard('1234567890')" class="text-slate-400 hover:text-brand-600"><i class="far fa-copy"></i></button>
+                            <div class="text-slate-400 group-hover:text-brand-600 transition">
+                                <i class="far fa-copy text-lg"></i>
                             </div>
                         </div>
 
-                        <div class="flex items-center justify-between border rounded-lg p-3 hover:border-brand-300 transition group">
+                        <div class="flex items-center justify-between border border-slate-200 rounded-xl p-4 hover:border-brand-300 hover:bg-blue-50/30 transition group cursor-pointer" onclick="copyToClipboard('0987654321', this)">
                             <div class="flex items-center">
-                                <div class="w-10 h-6 bg-orange-600 rounded mr-3"></div> <!-- Placeholder Mandiri Logo -->
+                                <div class="w-12 h-8 bg-orange-600 rounded flex items-center justify-center text-white text-[10px] font-bold mr-3">MANDIRI</div>
                                 <div class="text-left">
-                                    <p class="font-bold text-sm">Mandiri</p>
-                                    <p class="text-xs text-slate-500">A.N HomeyTips</p>
+                                    <p class="font-bold text-sm text-slate-800">0987 654 321</p>
+                                    <p class="text-xs text-slate-500">HomeyTips</p>
                                 </div>
                             </div>
-                            <div class="flex items-center">
-                                <span class="font-mono font-bold text-slate-700 mr-2">0987654321</span>
-                                <button onclick="copyToClipboard('0987654321')" class="text-slate-400 hover:text-brand-600"><i class="far fa-copy"></i></button>
+                            <div class="text-slate-400 group-hover:text-brand-600 transition">
+                                <i class="far fa-copy text-lg"></i>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Action Button -->
-                <a id="waConfirmLink" href="#" target="_blank" class="block w-full bg-green-500 text-white text-center py-3 rounded-xl font-bold hover:bg-green-600 transition shadow-lg flex items-center justify-center group">
-                    <i class="fab fa-whatsapp text-xl mr-2 group-hover:scale-110 transition"></i>
+                <a id="waConfirmLink" href="#" target="_blank" class="block w-full bg-[#25D366] text-white text-center py-4 rounded-xl font-bold hover:bg-[#128C7E] transition shadow-lg shadow-green-200 flex items-center justify-center group active:scale-95">
+                    <i class="fab fa-whatsapp text-2xl mr-2 group-hover:rotate-12 transition"></i>
                     Konfirmasi Pembayaran
                 </a>
-                <p class="text-xs text-center text-slate-400 mt-4">File akan dikirimkan via WhatsApp/Email setelah konfirmasi.</p>
+                <p class="text-xs text-center text-slate-400 mt-4 leading-relaxed px-4">Template akan dikirimkan otomatis via WhatsApp setelah bukti transfer diverifikasi (Maks. 10 Menit).</p>
             </div>
         </div>
     </div>
@@ -536,12 +642,18 @@
             // Close mobile menu if open
             document.getElementById('mobile-menu').classList.add('hidden');
 
-            window.scrollTo(0,0);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+            if (menu.classList.contains('hidden')) {
+                menu.classList.remove('hidden');
+                menu.classList.add('fade-in'); // Add animation
+            } else {
+                menu.classList.add('hidden');
+                menu.classList.remove('fade-in');
+            }
         }
 
         // --- UTILS ---
@@ -549,19 +661,25 @@
             return new Intl.NumberFormat('id-ID', {
                 style: 'currency',
                 currency: 'IDR',
-                minimumFractionDigits: 0
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
             }).format(number);
         }
 
-        function copyToClipboard(text) {
+        function copyToClipboard(text, element) {
             navigator.clipboard.writeText(text).then(() => {
-                // Simple feedback (could be improved with a toast)
-                const btn = event.currentTarget;
-                const originalIcon = btn.innerHTML;
-                btn.innerHTML = '<i class="fas fa-check text-green-500"></i>';
+                const iconContainer = element.querySelector('.text-slate-400, .text-brand-600');
+                const originalContent = iconContainer.innerHTML;
+                
+                // Change icon to checkmark
+                iconContainer.innerHTML = '<i class="fas fa-check-circle text-green-500 text-lg"></i>';
+                iconContainer.classList.remove('text-slate-400');
+                
+                // Revert back after 2 seconds
                 setTimeout(() => {
-                    btn.innerHTML = originalIcon;
-                }, 1500);
+                    iconContainer.innerHTML = '<i class="far fa-copy text-lg"></i>';
+                    iconContainer.classList.add('text-slate-400');
+                }, 2000);
             });
         }
 
@@ -574,18 +692,23 @@
             document.getElementById('payProductPrice').innerText = formattedPrice;
             
             // Generate WhatsApp Link
-            // Format: Halo HomeyTips, saya mau beli [Produk]. Saya sudah transfer sebesar [Harga]. Mohon diproses.
-            const message = `Halo HomeyTips, saya mau beli *${productName}*. Saya sudah transfer sebesar *${formattedPrice}*. Mohon diproses.`;
+            const message = `Halo HomeyTips, saya mau beli *${productName}*. Saya sudah transfer sebesar *${formattedPrice}*. Mohon diproses dan kirim filenya ya. Terima kasih.`;
             const waUrl = `https://wa.me/6281234567890?text=${encodeURIComponent(message)}`;
             
             document.getElementById('waConfirmLink').href = waUrl;
 
             // Show Modal
-            document.getElementById('paymentModal').classList.remove('hidden');
+            const modal = document.getElementById('paymentModal');
+            modal.classList.remove('hidden');
+            // Prevent body scroll when modal is open
+            document.body.style.overflow = 'hidden';
         }
 
         function closePaymentModal() {
-            document.getElementById('paymentModal').classList.add('hidden');
+            const modal = document.getElementById('paymentModal');
+            modal.classList.add('hidden');
+            // Re-enable body scroll
+            document.body.style.overflow = 'auto';
         }
 
         // --- FINANCE LOGIC ---
@@ -634,23 +757,27 @@
             const list = document.getElementById('choresList');
             list.innerHTML = '';
             
+            if (chores.length === 0) {
+                 list.innerHTML = '<div class="text-center text-slate-400 py-4 italic">Tidak ada tugas hari ini. Santai sejenak!</div>';
+                 return;
+            }
+
             chores.forEach(chore => {
                 const div = document.createElement('div');
-                div.className = `flex items-center p-3 rounded-lg border cursor-pointer transition ${chore.done ? 'bg-green-50 border-green-200' : 'bg-white border-slate-100 hover:bg-slate-50'}`;
+                div.className = `flex items-center p-4 rounded-xl border cursor-pointer transition select-none ${chore.done ? 'bg-green-50 border-green-200' : 'bg-white border-slate-100 hover:bg-slate-50 hover:border-brand-200'}`;
                 div.onclick = (e) => {
-                    // Prevent toggle if clicking delete button
                     if(e.target.closest('.delete-btn')) return;
                     toggleChore(chore.id);
                 };
 
                 div.innerHTML = `
-                    <div class="flex-shrink-0 mr-3">
-                        <div class="w-6 h-6 rounded-full border-2 flex items-center justify-center ${chore.done ? 'border-green-500 bg-green-500' : 'border-slate-300'}">
+                    <div class="flex-shrink-0 mr-4">
+                        <div class="w-6 h-6 rounded-full border-2 flex items-center justify-center transition ${chore.done ? 'border-green-500 bg-green-500' : 'border-slate-300'}">
                             ${chore.done ? '<i class="fas fa-check text-white text-xs"></i>' : ''}
                         </div>
                     </div>
-                    <span class="flex-1 ${chore.done ? 'line-through text-slate-400' : 'text-slate-700 font-medium'}">${chore.text}</span>
-                    <button class="delete-btn text-slate-300 hover:text-red-500 px-2" onclick="deleteChore(${chore.id})">
+                    <span class="flex-1 text-base ${chore.done ? 'line-through text-slate-400' : 'text-slate-700 font-medium'}">${chore.text}</span>
+                    <button class="delete-btn text-slate-300 hover:text-red-500 p-2 rounded-full hover:bg-red-50 transition" onclick="deleteChore(${chore.id})">
                         <i class="fas fa-trash"></i>
                     </button>
                 `;
@@ -686,7 +813,8 @@
         }
 
         function resetChores() {
-            if(confirm('Reset semua status checklist?')) {
+            if(chores.length === 0) return;
+            if(confirm('Mulai hari baru dan reset semua checklist?')) {
                 chores.forEach(c => c.done = false);
                 renderChores();
             }
@@ -700,7 +828,7 @@
             const months = parseFloat(document.getElementById('monthsInput').value);
 
             if (!dest || !cost || !months || months <= 0) {
-                alert("Mohon lengkapi semua data dengan benar.");
+                alert("Mohon lengkapi data tujuan, biaya, dan durasi bulan dengan benar.");
                 return;
             }
 
@@ -724,7 +852,6 @@
         let meals = {
             'Senin': 'Sarapan: Roti Bakar\nSiang: Soto Ayam\nMalam: Buah Potong',
             'Selasa': 'Sarapan: Nasi Goreng\nSiang: Gado-gado\nMalam: Ikan Bakar',
-            // Default placeholder for others
         };
 
         let currentEditingDay = '';
@@ -735,17 +862,19 @@
 
             days.forEach(day => {
                 const content = meals[day] || 'Belum ada rencana menu.';
-                // Split by new line to make it pretty
                 const formattedContent = content.replace(/\n/g, '<br>');
+                const hasContent = !!meals[day];
 
                 const card = document.createElement('div');
-                card.className = 'bg-white p-5 rounded-xl shadow-sm border border-slate-100 hover:shadow-md transition cursor-pointer hover:border-brand-200 h-full flex flex-col';
+                card.className = `bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-lg transition cursor-pointer hover:border-brand-200 h-full flex flex-col group touch-manipulation ${hasContent ? '' : 'opacity-80'}`;
                 card.onclick = () => openMealModal(day);
                 
                 card.innerHTML = `
-                    <div class="flex justify-between items-center mb-3 border-b pb-2">
+                    <div class="flex justify-between items-center mb-4 border-b pb-3 border-slate-100">
                         <h4 class="font-bold text-lg text-brand-700">${day}</h4>
-                        <i class="fas fa-pen text-xs text-slate-300"></i>
+                        <div class="bg-brand-50 text-brand-400 w-8 h-8 rounded-full flex items-center justify-center group-hover:bg-brand-500 group-hover:text-white transition">
+                             <i class="fas fa-pen text-xs"></i>
+                        </div>
                     </div>
                     <p class="text-sm text-slate-600 flex-1 leading-relaxed">${formattedContent}</p>
                 `;
@@ -757,16 +886,23 @@
             currentEditingDay = day;
             document.getElementById('modalDayTitle').innerText = `Edit Menu: ${day}`;
             document.getElementById('modalMealInput').value = meals[day] || '';
-            document.getElementById('mealModal').classList.remove('hidden');
+            const modal = document.getElementById('mealModal');
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             document.getElementById('mealModal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
         }
 
         function saveMeal() {
             const input = document.getElementById('modalMealInput').value;
-            meals[currentEditingDay] = input;
+            if(input.trim() === "") {
+                 delete meals[currentEditingDay];
+            } else {
+                 meals[currentEditingDay] = input;
+            }
             renderMeals();
             closeModal();
         }
