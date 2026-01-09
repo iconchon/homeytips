@@ -1,0 +1,28 @@
+{
+  "name": "HomeyTips Planner",
+  "short_name": "HomeyTips",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#eff6ff",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/home-icon-from-html.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/home-icon-from-html.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/home-icon-from-html.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}
