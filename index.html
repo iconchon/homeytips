@@ -8,7 +8,7 @@
     <!-- PWA Meta Tags -->
     <meta name="theme-color" content="#2563eb" />
     <meta name="description" content="HomeyTips - Tools perencanaan keuangan dan liburan keluarga" />
-    <link rel="manifest" href="/manifest.json" />
+    <link rel="manifest" href="/public/manifest.json" />
     <link rel="apple-touch-icon" href="/icon-192.png">
 
     <title>HomeyTips | Rencanakan Hidupmu</title>
@@ -23,7 +23,7 @@
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js')
+          navigator.serviceWorker.register('/public/sw.js')
             .then(reg => console.log('Service Worker registered!', reg))
             .catch(err => console.log('Service Worker registration failed:', err));
         });
